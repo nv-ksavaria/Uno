@@ -797,7 +797,7 @@ namespace Windows.UI.Xaml.Controls
 			global::Windows.Foundation.Metadata.ApiInformation.TryRaiseNotImplemented("Windows.UI.Xaml.Controls.Control", "void Control.OnPointerExited(PointerRoutedEventArgs e)");
 		}
 		#endif
-		#if __ANDROID__ || __IOS__ || NET46 || __WASM__
+		#if false || false || false || false
 		[global::Uno.NotImplemented]
 		protected virtual void OnPointerCaptureLost( global::Windows.UI.Xaml.Input.PointerRoutedEventArgs e)
 		{
