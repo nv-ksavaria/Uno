@@ -824,7 +824,7 @@ namespace Windows.UI.Xaml
 					PointerPressed += (snd, e) =>
 					{
 						var now = DateTimeOffset.Now;
-						if (lastTapped.AddMilliseconds(250) < now)
+						if (lastTapped.AddMilliseconds(250) > now)
 						{
 							RaiseEvent(TappedEvent, new DoubleTappedRoutedEventArgs(e.GetCurrentPoint()));
 						}
