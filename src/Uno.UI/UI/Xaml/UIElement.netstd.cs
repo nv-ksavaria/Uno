@@ -367,7 +367,9 @@ namespace Windows.UI.Xaml
 						? "null"
 						: "function(evt) { return " + eventExtractorScript + "; }";
 
-					_subscribeCommand = $"Uno.UI.WindowManager.current.registerEventOnView(\"{_owner.HtmlId}\", \"{eventName}\", {onCapturePhaseStr}, {filterFunction}, {extractorFunction});";
+					_subscribeCommand =
+						"Uno.UI.WindowManager.current.registerEventOnView(\"" + _owner.HtmlId + "\", \"" + eventName +
+						"\", " + onCapturePhaseStr + ", " + filterFunction + ", " + extractorFunction + ");";
 				}
 			}
 
@@ -502,12 +504,7 @@ namespace Windows.UI.Xaml
 			Func<string, EventArgs> payloadConverter = null,
 			Func<EventArgs, bool> eventFilterManaged = null)
 		{
-			if(!_eventHandlers.TryGetValue(eventName, out var registartion))
-			{
-				_eventHandlers[eventName] = registartion = new EventRegistration(this, eventName, onCapturePhase, eventFilterScript, eventExtractorScript, payloadConverter);
-			}
-
-			registartion.Add(handler);
+			RegisterEventHandlerEx(eventName, eventName, handler, onCapturePhase, eventFilterScript, eventExtractorScript, payloadConverter, eventFilterManaged);
 		}
 
 		internal void RegisterEventHandlerEx(
@@ -520,19 +517,19 @@ namespace Windows.UI.Xaml
 			Func<string, EventArgs> payloadConverter = null,
 			Func<EventArgs, bool> eventFilterManaged = null)
 		{
-			if (!_eventHandlers.TryGetValue(eventName, out var registartion))
+			if (!_eventHandlers.TryGetValue(eventName, out var registration))
 			{
-				_eventHandlers[managedEventIdentifier] = registartion = new EventRegistration(this, eventName, onCapturePhase, eventFilterScript, eventExtractorScript, payloadConverter);
+				_eventHandlers[managedEventIdentifier] = registration = new EventRegistration(this, eventName, onCapturePhase, eventFilterScript, eventExtractorScript, payloadConverter);
 			}
 
-			registartion.Add(handler);
+			registration.Add(handler);
 		}
 
 		internal void UnregisterEventHandler(string eventName, Delegate handler)
 		{
-			if (_eventHandlers.TryGetValue(eventName, out var registartion))
+			if (_eventHandlers.TryGetValue(eventName, out var registration))
 			{
-				registartion.Remove(handler);
+				registration.Remove(handler);
 			}
 			else
 			{
@@ -824,7 +821,7 @@ namespace Windows.UI.Xaml
 					PointerPressed += (snd, e) =>
 					{
 						var now = DateTimeOffset.Now;
-						if (lastTapped.AddMilliseconds(250) > now)
+						if (lastTapped.AddMilliseconds(250) < now)
 						{
 							RaiseEvent(TappedEvent, new DoubleTappedRoutedEventArgs(e.GetCurrentPoint()));
 						}
@@ -845,24 +842,24 @@ namespace Windows.UI.Xaml
 					{
 						case PointerEventHandler pointer:
 							eventFilterScript = (routedEvent == PointerPressedEvent || routedEvent == PointerReleasedEvent)
-								? leftPointerEventFilter
+								? LeftPointerEventFilter
 								: null;
-							eventExtractorScript = pointerEventExtractor;
+							eventExtractorScript = PointerEventExtractor;
 							payloadConverter = PayloadToPointerArgs;
 							break;
 						case TappedEventHandler tapped:
-							eventFilterScript = leftPointerEventFilter;
-							eventExtractorScript = pointerEventExtractor;
+							eventFilterScript = LeftPointerEventFilter;
+							eventExtractorScript = PointerEventExtractor;
 							payloadConverter = PayloadToTappedArgs;
 							break;
 						case DoubleTappedEventHandler doubleTapped:
-							eventFilterScript = leftPointerEventFilter;
-							eventExtractorScript = pointerEventExtractor;
+							eventFilterScript = LeftPointerEventFilter;
+							eventExtractorScript = PointerEventExtractor;
 							payloadConverter = PayloadToTappedArgs;
 							break;
 						case KeyEventHandler key:
 							eventFilterScript = null;
-							eventExtractorScript = keyEventExtractor;
+							eventExtractorScript = KeyEventExtractor;
 							payloadConverter = PayloadToKeyArgs;
 							break;
 						default:
@@ -875,8 +872,8 @@ namespace Windows.UI.Xaml
 					RegisterEventHandler(
 						eventName,
 						new RoutedEventHandler((sender, args) => RaiseEvent(routedEvent, args)),
-						false,
-						eventFilterScript,
+						true,
+						eventFilterScript ?? DefaultEventFilter,
 						eventExtractorScript,
 						payloadConverter
 					);
@@ -884,14 +881,17 @@ namespace Windows.UI.Xaml
 			}
 		}
 
-		private const string leftPointerEventFilter =
-			"evt ? (!evt.button || evt.button == 0) : false";
+		private const string LeftPointerEventFilter =
+			"evt ? evt.eventPhase == 2 && (!evt.button || evt.button == 0) : false";
 
-		private const string pointerEventExtractor =
+		private const string PointerEventExtractor =
 			"evt ? \"\"+evt.pointerId+\";\"+evt.clientX+\";\"+evt.clientY+\";\"+(evt.ctrlKey?\"1\":\"0\")+\";\"+(evt.shiftKey?\"1\":\"0\")+\";\"+evt.button+\";\"+evt.pointerType : \"\"";
 
-		private const string keyEventExtractor =
+		private const string KeyEventExtractor =
 			"(evt instanceof KeyboardEvent) ? evt.key : \"0\"";
+
+		private const string DefaultEventFilter =
+			"evt ? evt.eventPhase == 2 : false";
 
 		private PointerRoutedEventArgs PayloadToPointerArgs(string payload)
 		{
