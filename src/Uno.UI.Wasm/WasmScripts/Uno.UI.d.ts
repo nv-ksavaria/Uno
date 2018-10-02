@@ -166,7 +166,7 @@ declare namespace Uno.UI {
             * Add an event handler to a html element.
             *
             * @param eventName The name of the event
-            * @param onCapturePhase true means "on trickle down", false means "on bubble up". Default is false.
+            * @param onCapturePhase true means "on trickle down" (going down to target), false means "on bubble up" (bubbling back to ascestors). Default is false.
             */
         registerEventOnView(elementId: string, eventName: string, onCapturePhase?: boolean, eventFilter?: (event: Event) => boolean, eventExtractor?: (event: Event) => any): string;
         /**

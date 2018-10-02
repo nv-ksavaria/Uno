@@ -361,6 +361,8 @@ namespace <#= mixin.NamespaceName #>
                 return;
             }
 
+			global::System.Diagnostics.Debugger.Break();
+
             var keyRoutedEventArgs = new KeyRoutedEventArgs()
             {
                 Key = e.Event.KeyCode.ToVirtualKey()

@@ -366,7 +366,7 @@
 			* Add an event handler to a html element.
 			*
 			* @param eventName The name of the event
-			* @param onCapturePhase true means "on trickle down", false means "on bubble up". Default is false.
+			* @param onCapturePhase true means "on trickle down" (going down to target), false means "on bubble up" (bubbling back to ascestors). Default is false.
 			*/
 		public registerEventOnView(
 			elementId: string,
