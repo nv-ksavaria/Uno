@@ -163,18 +163,33 @@ namespace Uno.UI
 		public override void SetContentView(View view)
 		{
 			ContentView = view;
+			ContentView.ViewTreeObserver.GlobalLayout += (sender, args) =>
+			{
+				OnConfigurationChanged(Resources.Configuration);
+			};
+
 			base.SetContentView(view);
 		}
 
 		public override void SetContentView(View view, ViewGroup.LayoutParams @params)
 		{
 			ContentView = view;
+			ContentView.ViewTreeObserver.GlobalLayout += (sender, args) =>
+			{
+				OnConfigurationChanged(Resources.Configuration);
+			};
+
 			base.SetContentView(view, @params);
 		}
 
 		public override void AddContentView(View view, ViewGroup.LayoutParams @params)
 		{
 			ContentView = view;
+			ContentView.ViewTreeObserver.GlobalLayout += (sender, args) =>
+			{
+				OnConfigurationChanged(Resources.Configuration);
+			};
+
 			base.AddContentView(view, @params);
 		}
 
