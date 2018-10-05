@@ -55,12 +55,14 @@ namespace Windows.UI.Xaml
 		internal void RaiseNativeSizeChanged(int screenWidth, int screenHeight)
 		{
 			var newBounds = ViewHelper.PhysicalToLogicalPixels(new Rect(0, 0, screenWidth, screenHeight));
+			var statusBarHeight = GetLogicalStatusBarHeight();
+			var navigationBarHeight = GetLogicalNavigationBarHeight();
 
 			var newVisibleBounds = new Rect(
 				x: newBounds.Left,
-				y: newBounds.Top,
+				y: newBounds.Top + statusBarHeight,
 				width: newBounds.Width,
-				height: newBounds.Height - GetLogicalStatusBarHeight()
+				height: newBounds.Height - statusBarHeight - navigationBarHeight
 			);
 
 			var applicationView = ApplicationView.GetForCurrentView();
@@ -99,6 +101,19 @@ namespace Windows.UI.Xaml
 			}
 
 			return logicalStatusBarHeight;
+		}
+
+		private int GetLogicalNavigationBarHeight()
+		{
+			int logicalNavigationBarHeight = 0;
+
+			int resourceId = Android.Content.Res.Resources.System.GetIdentifier("navigation_bar_height", "dimen", "android");
+			if (resourceId > 0)
+			{
+				logicalNavigationBarHeight = (int)(Android.Content.Res.Resources.System.GetDimensionPixelSize(resourceId) / Android.App.Application.Context.Resources.DisplayMetrics.Density);
+			}
+
+			return logicalNavigationBarHeight;
 		}
 	}
 }
