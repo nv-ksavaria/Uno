@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
 	<PropertyGroup>
 		<TargetFrameworks>MonoAndroid80;uap10.0;xamarinios10;netstandard2.0</TargetFrameworks>
 		<TargetFrameworksCI>MonoAndroid71;MonoAndroid80;uap10.0;xamarinios10;netstandard2.0</TargetFrameworksCI>
@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <PackageReference Include="Uno.SourceGenerationTasks">
-      <Version>1.27.0-dev.94</Version>
+      <Version>1.27.0-dev.106</Version>
     </PackageReference>
     <PackageReference Include="Uno.Core">
       <Version>1.25.0-dev.53</Version>
