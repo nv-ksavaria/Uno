@@ -22,7 +22,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Uno.SourceGenerationTasks">
-			<Version> 1.27.0-dev.108</Version>
+			<Version>1.27.0-dev.112</Version>
 		</PackageReference>
 		<PackageReference Include="Uno.Core">
 			<Version>1.25.0-dev.53</Version>
