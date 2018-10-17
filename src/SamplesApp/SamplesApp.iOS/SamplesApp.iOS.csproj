@@ -106,7 +106,6 @@
 			<Version>1.27.0-dev.112</Version>
 			<NoWarn>NU1701</NoWarn>
 		</PackageReference>
-		<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.0-dev.58" />
 	</ItemGroup>
 
 	<ItemGroup>
