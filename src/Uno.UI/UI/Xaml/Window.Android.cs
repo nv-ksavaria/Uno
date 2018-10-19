@@ -33,10 +33,6 @@ namespace Windows.UI.Xaml
 			}
 		}
 
-		private void InternalActivate()
-		{
-		}
-
 		private void InternalSetContent(UIElement value)
 		{
 			_content = value;
