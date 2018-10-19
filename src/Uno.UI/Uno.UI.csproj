@@ -32,7 +32,6 @@
 
 	<ItemGroup>
 		<Compile Remove="Mixins\**\*.cs" />
-		<None Remove="UI\OnSystemUiVisibilityChangeListener.Android.cs" />
 		<Compile Include="Mixins\Android\BaseActivity.Callbacks.g.cs">
 			<DesignTime>True</DesignTime>
 			<AutoGen>True</AutoGen>

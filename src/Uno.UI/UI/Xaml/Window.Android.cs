@@ -20,9 +20,9 @@ namespace Windows.UI.Xaml
 			CoreWindow = new CoreWindow();
 		}
 
-		public int SystemUiVisibility { get; internal set; }
+		internal int SystemUiVisibility { get; set; }
 
-		public bool IsNavigationBarVisible
+		private bool IsNavigationBarVisible
 		{
 			get
 			{
