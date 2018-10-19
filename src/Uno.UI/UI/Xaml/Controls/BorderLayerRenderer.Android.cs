@@ -88,7 +88,7 @@ namespace Windows.UI.Xaml.Controls
 					}
 				}
 
-				view.Invalidate();
+				view.RequestLayout();
 
 				_currentState = newState;
 			}

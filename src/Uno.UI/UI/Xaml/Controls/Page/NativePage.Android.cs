@@ -13,12 +13,10 @@ namespace Windows.UI.Xaml.Controls
 
 		public NativePage(IntPtr ptr, Android.Runtime.JniHandleOwnership owner) : base(ptr, owner)
 		{
-
 		}
 
 		public NativePage()
 		{
-
 		}
 
 		protected override void OnCreate(Bundle bundle)
@@ -28,6 +26,9 @@ namespace Windows.UI.Xaml.Controls
 			Style = null;
 			
 			InitializeComponent();
+
+			var decorView = (ContextHelper.Current as Android.App.Activity).Window.DecorView;
+			decorView.SetOnSystemUiVisibilityChangeListener(new OnSystemUiVisibilityChangeListener());
 		}
 
 		protected override void OnDestroy()
