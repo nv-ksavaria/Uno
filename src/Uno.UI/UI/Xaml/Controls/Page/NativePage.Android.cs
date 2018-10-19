@@ -28,6 +28,8 @@ namespace Windows.UI.Xaml.Controls
 			InitializeComponent();
 
 			var decorView = (ContextHelper.Current as Android.App.Activity).Window.DecorView;
+
+			Windows.UI.Xaml.Window.Current.SystemUiVisibility = (int)decorView.SystemUiVisibility;
 			decorView.SetOnSystemUiVisibilityChangeListener(new OnSystemUiVisibilityChangeListener());
 		}
 

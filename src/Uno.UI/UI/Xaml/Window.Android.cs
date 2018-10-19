@@ -22,16 +22,7 @@ namespace Windows.UI.Xaml
 
 		internal int SystemUiVisibility { get; set; }
 
-		private bool IsNavigationBarVisible
-		{
-			get
-			{
-				var decorView = (ContextHelper.Current as Activity)?.Window?.DecorView;
-
-				return (SystemUiVisibility & (int)SystemUiFlags.HideNavigation) == 0
-					&& (decorView == null || ((int)decorView.SystemUiVisibility & (int)SystemUiFlags.HideNavigation) == 0);
-			}
-		}
+		private bool IsNavigationBarVisible => (SystemUiVisibility & (int)SystemUiFlags.HideNavigation) == 0;
 
 		private void InternalSetContent(UIElement value)
 		{
