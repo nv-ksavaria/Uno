@@ -83,7 +83,11 @@ namespace Windows.UI.Xaml
 			var decorView = activity.Window.DecorView;
 			var isStatusBarVisible = ((int)decorView.SystemUiVisibility & (int)SystemUiFlags.Fullscreen) == 0;
 
-			if (isStatusBarVisible)
+			var isStatusBarTranslucent =
+				((int)activity.Window.Attributes.Flags & (int)WindowManagerFlags.TranslucentStatus) != 0
+				|| ((int)activity.Window.Attributes.Flags & (int)WindowManagerFlags.LayoutNoLimits) != 0;
+
+			if (isStatusBarVisible && isStatusBarTranslucent)
 			{
 				int resourceId = Android.Content.Res.Resources.System.GetIdentifier("status_bar_height", "dimen", "android");
 				if (resourceId > 0)
@@ -104,7 +108,11 @@ namespace Windows.UI.Xaml
 			var activity = ContextHelper.Current as Activity;
 			var decorView = activity.Window.DecorView;
 
-			if (defaultDisplay != null && IsNavigationBarVisible)
+			var isNavigationBarTranslucent =
+				((int)activity.Window.Attributes.Flags & (int)WindowManagerFlags.TranslucentNavigation) != 0
+				|| ((int)activity.Window.Attributes.Flags & (int)WindowManagerFlags.LayoutNoLimits) != 0;
+
+			if (defaultDisplay != null && IsNavigationBarVisible && isNavigationBarTranslucent)
 			{
 				defaultDisplay.GetMetrics(metrics);
 				var usableHeight = metrics.HeightPixels;
