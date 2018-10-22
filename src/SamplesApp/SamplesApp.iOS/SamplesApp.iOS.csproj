@@ -98,27 +98,26 @@
     <Reference Include="System.Core" />
     <Reference Include="Xamarin.iOS" />
   </ItemGroup>
-	
-	<ItemGroup>
-		<PackageReference Include="Uno.SourceGenerationTasks">
-			<Version>1.27.0-dev.94</Version>
-			<NoWarn>NU1701</NoWarn>
-		</PackageReference>
-		<PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.0-dev.58" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\..\Uno.Foundation\Uno.Foundation.csproj" />
-		<ProjectReference Include="..\..\Uno.UI\Uno.UI.csproj" />
-		<ProjectReference Include="..\..\Uno.UWP\Uno.csproj" />
-	</ItemGroup>
-
-	<PropertyGroup>
-		<UnoUIGeneratorsBinPath>..\..\SourceGenerators\Uno.UI.SourceGenerators\bin\$(Configuration)</UnoUIGeneratorsBinPath>
-	</PropertyGroup>
-
-	<Import Project="..\..\SourceGenerators\Uno.UI.SourceGenerators\Content\Uno.UI.SourceGenerators.props" />
-
-	<Import Project="..\SamplesApp.Shared\SamplesApp.Shared.projitems" Label="Shared" Condition="Exists('..\SamplesApp.Shared\SamplesApp.Shared.projitems')" />
+  <ItemGroup>
+    <PackageReference Include="Uno.SourceGenerationTasks">
+      <Version>1.27.0-dev.94</Version>
+      <NoWarn>NU1701</NoWarn>
+    </PackageReference>
+    <PackageReference Include="Uno.Wasm.Bootstrap" Version="1.0.0-dev.58" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Uno.Foundation\Uno.Foundation.csproj" />
+    <ProjectReference Include="..\..\Uno.UI.Toolkit\Uno.UI.Toolkit.csproj">
+      <Project>{2eaf39e3-2ac9-457a-a5b2-47d6548799b3}</Project>
+      <Name>Uno.UI.Toolkit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Uno.UI\Uno.UI.csproj" />
+    <ProjectReference Include="..\..\Uno.UWP\Uno.csproj" />
+  </ItemGroup>
+  <PropertyGroup>
+    <UnoUIGeneratorsBinPath>..\..\SourceGenerators\Uno.UI.SourceGenerators\bin\$(Configuration)</UnoUIGeneratorsBinPath>
+  </PropertyGroup>
+  <Import Project="..\..\SourceGenerators\Uno.UI.SourceGenerators\Content\Uno.UI.SourceGenerators.props" />
+  <Import Project="..\SamplesApp.Shared\SamplesApp.Shared.projitems" Label="Shared" Condition="Exists('..\SamplesApp.Shared\SamplesApp.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

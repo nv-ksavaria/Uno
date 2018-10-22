@@ -4,16 +4,34 @@
 	  xmlns:local="using:SamplesApp"
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	  xmlns:toolkit="clr-namespace:Uno.UI.Toolkit;assembly=Uno.UI.Toolkit"
 	  mc:Ignorable="d">
 
-	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-		<StackPanel>
-			<TextBlock Text="Hello, WPF !"
-					   Margin="20"
-					   FontSize="30"
-					   TextWrapping="Wrap" />
-			<Slider x:Name="test" />
-			<TextBlock Text="{Binding Value, ElementName=test}" />
-		</StackPanel>
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+		  toolkit:VisibleBoundsPadding.PaddingMask="All"
+		  x:Name="GlobalGrid"
+		  VerticalAlignment="Stretch"
+		  HorizontalAlignment="Stretch">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+
+		<Border VerticalAlignment="Top"
+				x:Name="RedBorder"
+				Height="200"
+				Background="Red"
+				toolkit:VisibleBoundsPadding.PaddingMask="Top"
+				HorizontalAlignment="Stretch" />
+
+		<Border Grid.Row="2"
+				VerticalAlignment="Bottom"
+				x:Name="BlueBorder"
+				Height="200"
+				Background="Blue"
+				toolkit:VisibleBoundsPadding.PaddingMask="Bottom"
+				HorizontalAlignment="Stretch" />
+
 	</Grid>
 </Page>

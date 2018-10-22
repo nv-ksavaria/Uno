@@ -150,6 +150,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Uno.UI.Toolkit\Uno.UI.Toolkit.csproj">
+      <Project>{2eaf39e3-2ac9-457a-a5b2-47d6548799b3}</Project>
+      <Name>Uno.UI.Toolkit</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Uno.UI.WpfHost\Uno.UI.WpfHost.csproj">
       <Project>{2257a641-9fe7-4f96-9674-b5c61815194a}</Project>
       <Name>Uno.UI.WpfHost</Name>
