@@ -22,7 +22,7 @@ namespace Uno.UI.Controls
 		private readonly SerialDisposable _orientationSubscription = new SerialDisposable();
 
 		private static readonly double _defaultCommandBarHeight = 44;
-		private static readonly double _landscapePhoneCommandBarHeight = 32;
+		private static readonly double _landscapePhoneCommandBarHeight = 44;
 
 		protected override void OnLoaded()
 		{
