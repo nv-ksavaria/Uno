@@ -1,4 +1,4 @@
-#if XAMARIN_IOS
+#if __IOS__
 using CoreGraphics;
 using Foundation;
 using System;
@@ -69,12 +69,6 @@ namespace Windows.UI.Xaml
 			RaiseNativeSizeChanged(ViewHelper.GetScreenSize());
 		}
 
-		private void InternalActivate()
-		{
-			_window.RootViewController = _mainController;
-			_window.MakeKeyAndVisible();
-		}
-
 		private void InternalSetContent(UIElement value)
 		{
 			_content?.RemoveFromSuperview();
@@ -101,15 +95,15 @@ namespace Windows.UI.Xaml
 		{
 			var newBounds = new Rect(0, 0, size.Width, size.Height);
 
+			var applicationView = ApplicationView.GetForCurrentView();
+			if (applicationView != null)
+			{
+				applicationView.SetCoreBounds(_window, newBounds);
+			}
+
 			if (Bounds != newBounds)
 			{
 				Bounds = newBounds;
-
-				var applicationView = ApplicationView.GetForCurrentView();
-				if (applicationView != null)
-				{
-					applicationView.SetCoreBounds(_window, newBounds);
-				}
 
 				RaiseSizeChanged(
 					new WindowSizeChangedEventArgs(
